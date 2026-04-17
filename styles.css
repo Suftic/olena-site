@@ -226,14 +226,14 @@ h1, h2, h3, h4, p, a, span, li { overflow-wrap: break-word; word-wrap: break-wor
     top: var(--nav-h, 60px);
     left: 0;
     right: 0;
-    bottom: 0;
     width: 100%;
     max-width: 100%;
+    max-height: calc(100dvh - var(--nav-h, 60px));
     background: var(--color-bg);
     flex-direction: column;
     align-items: stretch;
-    gap: 8px;
-    padding: 24px;
+    gap: 4px;
+    padding: 12px 20px 20px;
     overflow-y: auto;
     overscroll-behavior: contain;
     z-index: 40;
@@ -242,7 +242,8 @@ h1, h2, h3, h4, p, a, span, li { overflow-wrap: break-word; word-wrap: break-wor
     pointer-events: none;
     transition: transform .22s ease, opacity .22s ease;
     -webkit-overflow-scrolling: touch;
-    border-top: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.05);
   }
   .nav-menu[data-open="true"] {
     transform: none;
@@ -256,15 +257,16 @@ h1, h2, h3, h4, p, a, span, li { overflow-wrap: break-word; word-wrap: break-wor
     width: 100%;
   }
   .nav-links a {
-    padding: 16px 4px;
-    font-size: 18px;
+    padding: 12px 4px;
+    font-size: 16px;
     color: var(--color-fg);
     border-bottom: 1px solid var(--color-border-subtle);
   }
   .nav-links a:last-child { border-bottom: 0; }
   .nav-menu .btn {
     width: 100%;
-    margin-top: 16px;
+    margin-top: 12px;
+    min-height: 44px;
   }
 }
 
