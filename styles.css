@@ -83,7 +83,10 @@ h1, h2, h3, h4, p, a, span, li { overflow-wrap: break-word; word-wrap: break-wor
   cursor: pointer;
   text-align: center;
   max-width: 100%;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
+.nav-toggle { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 .btn:hover { transform: translateY(-1px); }
 .btn-primary { background: var(--color-fg); color: var(--color-on-accent); }
 .btn-primary:hover { background: #000; }
@@ -217,23 +220,29 @@ h1, h2, h3, h4, p, a, span, li { overflow-wrap: break-word; word-wrap: break-wor
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 @media (max-width: 899px) {
-  .nav-toggle { display: flex; }
+  .nav-toggle { display: flex; z-index: 50; position: relative; }
+  .nav-logo { z-index: 50; position: relative; }
   .nav-menu {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 100%;
     background: var(--color-bg);
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
-    padding: 16px 24px 24px;
-    border-bottom: 1px solid var(--color-border-subtle);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.04);
-    transform: translateY(-10px);
+    padding: 80px 24px 40px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    z-index: 45;
+    transform: translateY(-12px);
     opacity: 0;
     pointer-events: none;
     transition: transform .22s ease, opacity .22s ease;
+    -webkit-overflow-scrolling: touch;
   }
   .nav-menu[data-open="true"] {
     transform: none;
@@ -247,15 +256,15 @@ h1, h2, h3, h4, p, a, span, li { overflow-wrap: break-word; word-wrap: break-wor
     width: 100%;
   }
   .nav-links a {
-    padding: 14px 4px;
-    font-size: 17px;
+    padding: 16px 4px;
+    font-size: 18px;
     color: var(--color-fg);
     border-bottom: 1px solid var(--color-border-subtle);
   }
   .nav-links a:last-child { border-bottom: 0; }
   .nav-menu .btn {
     width: 100%;
-    margin-top: 8px;
+    margin-top: 16px;
   }
 }
 
