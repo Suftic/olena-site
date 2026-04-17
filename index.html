@@ -266,14 +266,27 @@
 
   <script>
     (function () {
+      var nav = document.querySelector('.nav');
       var toggle = document.querySelector('.nav-toggle');
       var menu = document.getElementById('nav-menu');
-      if (!toggle || !menu) return;
+      if (!toggle || !menu || !nav) return;
+
+      function syncNavHeight() {
+        var h = nav.offsetHeight;
+        if (h) document.documentElement.style.setProperty('--nav-h', h + 'px');
+      }
       function setOpen(open) {
+        syncNavHeight();
         menu.dataset.open = String(open);
         toggle.setAttribute('aria-expanded', String(open));
-        document.body.style.overflow = open ? 'hidden' : '';
       }
+
+      syncNavHeight();
+      window.addEventListener('resize', function () {
+        syncNavHeight();
+        if (window.innerWidth >= 900) setOpen(false);
+      });
+
       toggle.addEventListener('click', function (e) {
         e.stopPropagation();
         setOpen(menu.dataset.open !== 'true');
@@ -283,9 +296,6 @@
       });
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') setOpen(false);
-      });
-      window.addEventListener('resize', function () {
-        if (window.innerWidth >= 900) setOpen(false);
       });
     })();
 
