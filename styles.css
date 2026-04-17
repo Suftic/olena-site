@@ -282,7 +282,9 @@ h1, h2, h3, h4, p, a, span, li { overflow-wrap: break-word; word-wrap: break-wor
   position: relative;
   aspect-ratio: 4/5;
   border-radius: var(--radius-lg);
-  background: linear-gradient(160deg, var(--color-psy-soft) 0%, var(--color-psy) 100%);
+  background:
+    radial-gradient(circle at -10% 110%, var(--color-massage-soft) 0%, transparent 45%),
+    linear-gradient(160deg, var(--color-psy-soft) 0%, var(--color-psy) 100%);
   overflow: hidden;
   box-shadow: var(--shadow-card);
 }
@@ -294,14 +296,6 @@ h1, h2, h3, h4, p, a, span, li { overflow-wrap: break-word; word-wrap: break-wor
   color: var(--color-psy-strong);
   font-size: 14px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
   opacity: 0.5;
-}
-.hero-visual-blob {
-  position: absolute;
-  width: 60%; aspect-ratio: 1/1; border-radius: 50%;
-  background: var(--color-massage-soft); opacity: 0.7;
-  bottom: -15%; left: -15%;
-  filter: blur(0.5px);
-  pointer-events: none;
 }
 .hero-badge {
   position: absolute;
