@@ -332,12 +332,10 @@
         if (t) dropHand(t.clientX, t.clientY);
       }, { passive: true });
 
+      // Сбрасываем last-координаты при старте нового touch'а, чтобы свайп считался от места тапа
       document.addEventListener('touchstart', function (e) {
         var t = e.touches && e.touches[0];
-        if (t) {
-          lastX = t.clientX; lastY = t.clientY;
-          dropHand(t.clientX, t.clientY);
-        }
+        if (t) { lastX = t.clientX; lastY = t.clientY; }
       }, { passive: true });
     })();
 
