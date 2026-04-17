@@ -285,6 +285,33 @@
       });
     })();
 
+    // Mouse trail — at each mousemove drop a hand at the cursor (Rachel Rudman vibe)
+    (function () {
+      if (window.matchMedia('(hover: none)').matches) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var lastTs = 0;
+      var lastX = 0, lastY = 0;
+      var size = 36;
+      document.addEventListener('mousemove', function (e) {
+        var now = performance.now();
+        // Throttle: один хэнд не чаще чем раз в 55ms
+        if (now - lastTs < 55) return;
+        // И только если курсор реально сдвинулся заметно
+        var dx = e.clientX - lastX, dy = e.clientY - lastY;
+        if (dx * dx + dy * dy < 120) return;
+        lastTs = now;
+        lastX = e.clientX; lastY = e.clientY;
+
+        var hand = document.createElement('span');
+        hand.className = 'hand-trail';
+        hand.style.left = (e.clientX - size / 2) + 'px';
+        hand.style.top = (e.clientY - size / 2) + 'px';
+        hand.style.setProperty('--rot', (Math.random() * 60 - 30) + 'deg');
+        document.body.appendChild(hand);
+        setTimeout(function () { hand.remove(); }, 1200);
+      }, { passive: true });
+    })();
+
     // Debug mode: add ?debug to URL to highlight elements wider than viewport
     (function () {
       if (!/[?&]debug\b/.test(location.search)) return;
