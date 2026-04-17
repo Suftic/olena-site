@@ -298,7 +298,7 @@
 
       function dropHand(x, y) {
         var now = performance.now();
-        if (now - lastTs < 110) return;
+        if (now - lastTs < 220) return;
         var dx = x - lastX, dy = y - lastY;
         if (dx * dx + dy * dy < 120) return;
         lastTs = now;
