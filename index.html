@@ -285,30 +285,45 @@
       });
     })();
 
-    // Mouse trail — at each mousemove drop a hand at the cursor (Rachel Rudman vibe)
+    // Hand trail — works for mouse AND touch (Rachel Rudman vibe)
     (function () {
-      if (window.matchMedia('(hover: none)').matches) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       var lastTs = 0;
       var lastX = 0, lastY = 0;
-      var size = 36;
-      document.addEventListener('mousemove', function (e) {
+      var size = 54;
+
+      function dropHand(x, y) {
         var now = performance.now();
-        // Throttle: один хэнд не чаще чем раз в 55ms
         if (now - lastTs < 55) return;
-        // И только если курсор реально сдвинулся заметно
-        var dx = e.clientX - lastX, dy = e.clientY - lastY;
+        var dx = x - lastX, dy = y - lastY;
         if (dx * dx + dy * dy < 120) return;
         lastTs = now;
-        lastX = e.clientX; lastY = e.clientY;
+        lastX = x; lastY = y;
 
         var hand = document.createElement('span');
         hand.className = 'hand-trail';
-        hand.style.left = (e.clientX - size / 2) + 'px';
-        hand.style.top = (e.clientY - size / 2) + 'px';
+        hand.style.left = (x - size / 2) + 'px';
+        hand.style.top = (y - size / 2) + 'px';
         hand.style.setProperty('--rot', (Math.random() * 60 - 30) + 'deg');
         document.body.appendChild(hand);
         setTimeout(function () { hand.remove(); }, 1200);
+      }
+
+      document.addEventListener('mousemove', function (e) {
+        dropHand(e.clientX, e.clientY);
+      }, { passive: true });
+
+      document.addEventListener('touchmove', function (e) {
+        var t = e.touches && e.touches[0];
+        if (t) dropHand(t.clientX, t.clientY);
+      }, { passive: true });
+
+      document.addEventListener('touchstart', function (e) {
+        var t = e.touches && e.touches[0];
+        if (t) {
+          lastX = t.clientX; lastY = t.clientY;
+          dropHand(t.clientX, t.clientY);
+        }
       }, { passive: true });
     })();
 
