@@ -16,13 +16,18 @@
   <header class="nav">
     <div class="container nav-inner">
       <a href="#" class="nav-logo">Olena Zolotariova</a>
-      <nav class="nav-links">
-        <a href="#about">Про мене</a>
-        <a href="#services">Послуги</a>
-        <a href="#process">Як працюю</a>
-        <a href="#contact">Контакти</a>
-      </nav>
-      <a href="#contact" class="btn btn-primary">Записатись</a>
+      <button class="nav-toggle" aria-label="Меню" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu" data-open="false">
+        <nav class="nav-links">
+          <a href="#about">Про мене</a>
+          <a href="#services">Послуги</a>
+          <a href="#process">Як працюю</a>
+          <a href="#contact">Контакти</a>
+        </nav>
+        <a href="#contact" class="btn btn-primary">Записатись</a>
+      </div>
     </div>
   </header>
 
@@ -260,5 +265,26 @@
     </div>
   </footer>
 
+  <script>
+    (function () {
+      var toggle = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('nav-menu');
+      if (!toggle || !menu) return;
+      function setOpen(open) {
+        menu.dataset.open = String(open);
+        toggle.setAttribute('aria-expanded', String(open));
+        document.body.style.overflow = open ? 'hidden' : '';
+      }
+      toggle.addEventListener('click', function () {
+        setOpen(menu.dataset.open !== 'true');
+      });
+      menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { setOpen(false); });
+      });
+      window.addEventListener('resize', function () {
+        if (window.innerWidth >= 900) setOpen(false);
+      });
+    })();
+  </script>
 </body>
 </html>
