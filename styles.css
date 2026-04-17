@@ -155,7 +155,8 @@ h1, h2, h3, h4, p, a, span, li { overflow-wrap: break-word; word-wrap: break-wor
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 0;
+  padding-top: 14px;
+  padding-bottom: 14px;
   gap: 16px;
 }
 .nav-logo {
@@ -169,9 +170,6 @@ h1, h2, h3, h4, p, a, span, li { overflow-wrap: break-word; word-wrap: break-wor
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin: 0;
-  padding: 0;
-  text-indent: -0.06em;
 }
 @media (min-width: 380px) { .nav-logo { font-size: 20px; } }
 @media (min-width: 600px) { .nav-logo { font-size: 22px; } }
